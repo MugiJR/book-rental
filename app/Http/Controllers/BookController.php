@@ -19,7 +19,7 @@ class BookController extends Controller
         return view('books.list', ['books' => $books]);
     }
 
-    public function add()
+    public function create()
     {
         return view('books.add');
     }
@@ -30,29 +30,25 @@ class BookController extends Controller
         return redirect('/');
     }
 
-    public function edit($id)
+    public function edit(Book $book)
     {
-        $book = Book::find($id);
         return view('books.edit', ['book' => $book]);
     }
 
-    public function update($id, BookFormRequest $request)
+    public function update(Book $book, BookFormRequest $request)
     {
-        $book = Book::find($id);
         $book->update($request->validated());
         return redirect('/books');
     }
 
-    public function show($id)
+    public function show(Book $book)
     {
-        $book = Book::find($id);
         return view('books.show', ['book' => $book]);
     }
 
-    public function delete($id)
+    public function destroy(Book $book)
     {
-        $book = Book::find($id);
         $book->delete();
-        return redirect('/books');
+        return redirect('/');
     }
 }
