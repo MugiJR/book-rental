@@ -4,7 +4,7 @@
 
 <div class="container py-3">
     <h2>Add New Book</h2>
-    <form action="/books" method="post">
+    <form action="/" method="post">
         @csrf
         <div class="form-group">
             <label for="title">Title</label>

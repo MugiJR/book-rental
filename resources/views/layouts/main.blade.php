@@ -19,7 +19,7 @@
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
           <a class="nav-item nav-link" href="/books">Books</a>
-          <a class="nav-item nav-link" href="/books/add">Add book</a>
+          <a class="nav-item nav-link" href="/books/add">Add New book</a>
         </div>
       </div>
     </nav>

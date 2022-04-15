@@ -27,7 +27,7 @@ class BookController extends Controller
     public function store(BookFormRequest $request)
     {
         Book::create($request->validated());
-        return redirect('/books');
+        return redirect('/');
     }
 
     public function edit($id)
