@@ -20,6 +20,7 @@
         <div class="navbar-nav">
           <a class="nav-item nav-link" href="/books">Books</a>
           <a class="nav-item nav-link" href="/books/create">Add New book</a>
+          <a class="nav-item nav-link" href="/genres">Genre List</a>
         </div>
       </div>
     </nav>

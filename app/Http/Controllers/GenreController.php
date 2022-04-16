@@ -15,7 +15,8 @@ class GenreController extends Controller
      */
     public function index()
     {
-        //
+        $genres = Genre::all();
+        return view('genres/list', ['genres' => $genres]);
     }
 
     /**
@@ -25,7 +26,7 @@ class GenreController extends Controller
      */
     public function create()
     {
-        //
+        return view('genres.create');
     }
 
     /**
@@ -36,7 +37,8 @@ class GenreController extends Controller
      */
     public function store(StoreGenreRequest $request)
     {
-        //
+        Genre::create($request -> validated());
+        return redirect()->route('genres.index');
     }
 
     /**
@@ -58,19 +60,20 @@ class GenreController extends Controller
      */
     public function edit(Genre $genre)
     {
-        //
+        return view('genres.edit', ['genre'=>$genre]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateGenreRequest  $request
+     * @param  \App\Http\Requests\StoreGenreRequest  $request
      * @param  \App\Models\Genre  $genre
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateGenreRequest $request, Genre $genre)
+    public function update(StoreGenreRequest $request, Genre $genre)
     {
-        //
+        $genre -> update($request -> validated());
+        return redirect() -> route('genres.index');  
     }
 
     /**
@@ -81,6 +84,7 @@ class GenreController extends Controller
      */
     public function destroy(Genre $genre)
     {
-        //
+        $genre->delete();
+        return redirect() -> route('genres.index'); 
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\GenreController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,3 +19,4 @@ Route::get('/', [BookController::class, 'main']);
 Route::post('/', [BookController::class, 'store']);
 
 Route::resource('books', BookController::class);
+Route::resource('genres', GenreController::class);
