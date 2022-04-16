@@ -20,54 +20,38 @@
             <label for="style">Style</label>
             <select class="form-control" id="style" name="style">
                 <option selected disabled value="">Choose...</option>
+                <option value="primary" @selected(old('style')=="primary" )>
+                    primary
+                </option>
+
+                <option value="secondary" @selected(old('style')=="secondary" )>
+                secondary
+                </option>
+
+                <option value="success" @selected(old('style')=="success" )>
+                success
+                </option>
+
+                <option value="danger" @selected(old('style')=="danger" )>
+                danger
+                </option>
+
+                <option value="warning" @selected(old('style')=="warning" )>
+                warning
+                </option>
+
+                <option value="info" @selected(old('style')=="info" )>
+                info
+                </option>
+
+                <option value="light" @selected(old('light')=="light" )>
+                light
+                </option>
+
+                <option value="dark" @selected(old('dark')=="dark" )>
+                dark
+                </option>
                 
-                @if (old('style', '') == "primary")
-                <option selected value="primary">primary</option>
-                @else
-                <option value="primary">primary</option>
-                @endif
-
-                @if (old('style', '') == "secondary")
-                <option selected value="secondary">secondary</option>
-                @else
-                <option value="secondary">secondary</option>
-                @endif
-
-                @if (old('style', '') == "success")
-                <option selected value="success">success</option>
-                @else
-                <option value="success">success</option>
-                @endif
-
-                @if (old('style', '') == "danger")
-                <option selected value="danger">danger</option>
-                @else
-                <option value="danger">danger</option>
-                @endif
-
-                @if (old('style', '') == "warning")
-                <option selected value="warning">warning</option>
-                @else
-                <option value="warning">warning</option>
-                @endif
-
-                @if (old('style', '') == "info")
-                <option selected value="info">info</option>
-                @else
-                <option value="info">info</option>
-                @endif
-
-                @if (old('style', '') == "light")
-                <option selected value="light">light</option>
-                @else
-                <option value="light">light</option>
-                @endif
-
-                @if (old('style', '') == "dark")
-                <option selected value="dark">dark</option>
-                @else
-                <option value="dark">dark</option>
-                @endif
             </select>
             @error('style')
             <div class="invalid-feedback d-block">

@@ -22,53 +22,38 @@
             <select class="form-control" id="style" name="style">
                 <option disabled value="">Choose...</option>
 
-                @if ($genre->style == "primary")
-                <option selected value="primary">primary</option>
-                @else
-                <option value="primary">primary</option>
-                @endif
+                <option value="primary" @selected(old('style', $genre->style)=="primary" )>
+                    primary
+                </option>
 
-                @if ($genre->style == "secondary")
-                <option selected value="secondary">secondary</option>
-                @else
-                <option value="secondary">secondary</option>
-                @endif
+                <option value="secondary" @selected(old('style', $genre->style)=="secondary" )>
+                secondary
+                </option>
 
-                @if ($genre->style == "success")
-                <option selected value="success">success</option>
-                @else
-                <option value="success">success</option>
-                @endif
+                <option value="success" @selected(old('style', $genre->style)=="success" )>
+                success
+                </option>
 
-                @if ($genre->style == "danger")
-                <option selected value="danger">danger</option>
-                @else
-                <option value="danger">danger</option>
-                @endif
+                <option value="danger" @selected(old('style', $genre->style)=="danger" )>
+                danger
+                </option>
 
-                @if ($genre->style == "warning")
-                <option selected value="warning">warning</option>
-                @else
-                <option value="warning">warning</option>
-                @endif
+                <option value="warning" @selected(old('style', $genre->style)=="warning" )>
+                warning
+                </option>
 
-                @if ($genre->style == "info")
-                <option selected value="info">info</option>
-                @else
-                <option value="info">info</option>
-                @endif
+                <option value="info" @selected(old('style', $genre->style)=="info" )>
+                info
+                </option>
 
-                @if ($genre->style == "light")
-                <option selected value="light">light</option>
-                @else
-                <option value="light">light</option>
-                @endif
+                <option value="light" @selected(old('light', $genre->style)=="light" )>
+                light
+                </option>
 
-                @if ($genre->style == "dark")
-                <option selected value="dark">dark</option>
-                @else
-                <option value="dark">dark</option>
-                @endif
+                <option value="dark" @selected(old('dark', $genre->style)=="dark" )>
+                dark
+                </option>
+                
             </select>
             @error('style')
             <div class="invalid-feedback d-block">
