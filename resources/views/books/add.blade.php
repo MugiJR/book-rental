@@ -87,6 +87,17 @@
             @enderror
         </div>
 
+        <div class="form-group d-flex flex-wrap">
+            @foreach ($genres as $genre)
+            <div class="custom-control custom-switch col-sm-2">
+                <input type="checkbox" class="custom-control-input" name="genres[]" id="genre-{{ $genre['id'] }}" value="{{ $genre['id'] }}">
+                <label class="custom-control-label" for="genre-{{ $genre['id'] }}">
+                    {{ $genre['name'] }}
+                </label>
+            </div>
+            @endforeach
+        </div>
+
         <div class="form-group">
             <label for="in_stock">In Stock</label>
             <input type="number" class="form-control" value="{{ old('in_stock', '') }}" class="form-control @error('in_stock') is-invalid @enderror" id="in_stock" name="in_stock" placeholder="In Stock">

@@ -30,7 +30,7 @@
 
         <div class="form-group">
             <label for="description">Description</label>
-            <textarea type="text" class="form-control"  class="form-control @error('description') is-invalid @enderror" id="description" name="description" placeholder="Enter the description" rows="3">{{ old('description', $book['description']) }}</textarea>
+            <textarea type="text" class="form-control" class="form-control @error('description') is-invalid @enderror" id="description" name="description" placeholder="Enter the description" rows="3">{{ old('description', $book['description']) }}</textarea>
             @error('description')
             <div class="invalid-feedback d-block">
                 {{ $message }}
@@ -86,6 +86,18 @@
                 {{ $message }}
             </div>
             @enderror
+        </div>
+
+        <div class="form-group d-flex flex-wrap">
+            @foreach ($genres as $genre)
+            <div class="custom-control custom-switch col-sm-2">
+                <input type="checkbox" class="custom-control-input" name="genres[]" id="genre-{{ $genre['id'] }}" value="{{ $genre['id'] }}" @if ($book->genres->contains($genre)) checked @endif
+                >
+                <label class="custom-control-label" for="genre-{{ $genre['id'] }}">
+                    {{ $genre['name'] }}
+                </label>
+            </div>
+            @endforeach
         </div>
 
         <div class="form-group">
