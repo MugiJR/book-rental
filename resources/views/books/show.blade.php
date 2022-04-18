@@ -17,7 +17,9 @@
 
         <div class="col-md-4">
             <h3 class="my-3">Book Description</h3>
-            <p>{{$book -> description }}</p>
+            <p>
+                {{$book -> description }}
+            </p>
             <h3 class="my-3">Book Details</h3>
             <div class="table-responsive">
                 <table class="table table-striped table-product">
@@ -46,17 +48,39 @@
                             <td>In Stock</td>
                             <td>{{$book -> in_stock }}</td>
                         </tr>
+                        <tr>
+                            <td>No of Available Book</td>
+                            <td>{{ $book->in_stock - $book->activeBorrows()->count()}}</td>
+                        </tr>
+                        <tr>
+                            <td>Genres</td>
+                            <td>
+                                @foreach($book->genres as $genre)
+                                <ul class="list-group">
+                                    <li class="list-group-item">{{$genre -> name}}</li>
+                                </ul>
+                                @endforeach
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
+            @if($book->ongoingBorrows->isNotEmpty())
+            <h3 class="my-3">Sorry, you have already an ongoing rental request for this book.</h3>
+            @else
+            <form action="{{route('borrows.store', ['book' => $book -> id] )}}" method="post">
+                @csrf
+                <button type="submit" class="btn btn-warning my-4">Borrow this book</button>
+            </form>
+            @endif
             <form action="/books/{{$book->id}}" method="post">
                 @csrf
                 @method('delete')
                 <button type="submit" class="btn btn-warning my-4">Delete</button>
             </form>
-            
+
         </div>
-        
+
 
     </div>
     <!-- /.row -->

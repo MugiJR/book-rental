@@ -49,7 +49,8 @@ class GenreController extends Controller
      */
     public function show(Genre $genre)
     {
-        //
+        $books = $genre->books()->get();
+        return view('genres.show', ['genre'=>$genre, 'books' => $books]);
     }
 
     /**

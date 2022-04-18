@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BookFormRequest;
 use App\Models\Book;
+use App\Models\Borrow;
 use App\Models\Genre;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,21 @@ class BookController extends Controller
     public function main()
     {
         $numberOfBooks = Book::all()->count();
-        return view('main', ['numberOfBooks' => $numberOfBooks]);
+        $numberOfUsers = \App\Models\User::all()->count();
+        $numberOfGenres = \App\Models\Genre::all()->count();
+        $numberOfActiveBookRentals = \App\Models\Borrow::all()->where('status','ACCEPTED')->count();
+        $genreList = \App\Models\Genre::all();
+
+        return view(
+            'main',
+            [
+                'numberOfBooks' => $numberOfBooks,
+                'numberOfUsers' => $numberOfUsers,
+                'numberOfGenres' => $numberOfGenres,
+                'numberOfActiveBookRentals' => $numberOfActiveBookRentals,
+                'genreList' => $genreList
+            ]
+        );
     }
     public function index()
     {
@@ -53,6 +68,8 @@ class BookController extends Controller
 
     public function show(Book $book)
     {
+        // $numberOfAvailableBooks = $book->in_stock - $book->activeBorrows()->count();
+        // dd($numberOfAvailableBooks);
         return view('books.show', ['book' => $book]);
     }
 

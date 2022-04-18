@@ -31,8 +31,7 @@ class BookFormRequest extends FormRequest
             'image_url'      => 'nullable | url',
             'pages'          => 'required | integer | min:1',
             'lang_code'      => 'required | max : 3',
-            'isbn'           => 'required | regex:/^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$/i',
-            'genres'         => 'nullable | array',
+            'isbn'           => 'required | regex:/^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$/i',  
             'in_stock'       => 'required | integer | min:0' 
         ];
     }
