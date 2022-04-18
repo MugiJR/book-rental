@@ -3,6 +3,7 @@
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BorrowController;
 use App\Http\Controllers\GenreController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [BookController::class, 'main']);
 Route::post('/', [BookController::class, 'store']);
-
+Route::get('/profile',[HomeController::class, 'show']);
 Route::resource('books', BookController::class);
 Route::resource('genres', GenreController::class);
 Route::resource('borrows', BorrowController::class);

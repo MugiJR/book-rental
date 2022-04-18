@@ -32,6 +32,7 @@
 
 
 
+        @can(Auth::check())
         @can('is_librarian')
         <a class="nav-item nav-link" href="{{route('books.create')}}">Add New book</a>
         <a class="nav-item nav-link" href="{{route('genres.index')}}">Genre List</a>
@@ -41,6 +42,7 @@
         @cannot('is_librarian')
         <a class="nav-item nav-link" href="{{route('borrows.index')}}">My Rentals</a>
         @endcannot
+        @endcan
         <!-- Right Side Of Navbar -->
         <ul class="navbar-nav ms-auto">
           <!-- Authentication Links -->
@@ -63,6 +65,9 @@
             </a>
 
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/profile" >
+                My Profile
+              </a>
               <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                 {{ __('Logout') }}
