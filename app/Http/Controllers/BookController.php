@@ -35,6 +35,23 @@ class BookController extends Controller
         return view('books.list', ['books' => $books]);
     }
 
+    public function search()
+    {
+        if (empty($_GET['book'])){
+            return redirect('/');
+        }
+        $books = Book::where(
+            function ($query) {
+                return $query
+                    ->where('title', 'like', '%' . $_GET['book'] . '%')
+                    ->orwhere('author', 'like', '%' . $_GET['book'] . '%');
+            }
+        )->get();
+        return view('books.list', ['books' => $books]);
+
+
+    }
+
     public function create()
     {
         $genres = Genre::all();
@@ -75,6 +92,7 @@ class BookController extends Controller
 
     public function destroy(Book $book)
     {
+        $this->authorize('is_librarian');
         $book->delete();
         return redirect('/');
     }

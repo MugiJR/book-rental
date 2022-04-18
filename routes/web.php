@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [BookController::class, 'main']);
 Route::post('/', [BookController::class, 'store']);
+Route::get('/search', [BookController::class, 'search'])->name('books.search');
 Route::get('/profile',[HomeController::class, 'show']);
 Route::resource('books', BookController::class);
 Route::resource('genres', GenreController::class);

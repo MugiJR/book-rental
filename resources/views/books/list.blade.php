@@ -15,20 +15,14 @@
           <p class="card-text"><small class="text-muted">Author - {{$book->author}}</small></p>
           <p class="card-text"><small class="text-muted">Released at {{$book->released_at}}</small></p>
           <a href="/books/{{$book->id}}" class="btn btn-secondary">View</a>
+          @can('is_librarian')
           <a href="/books/{{$book->id}}/edit" class="btn btn-primary">Edit</a>
+          @endcan
         </div>
       </div>
     </div>
     @endforeach
     
-
-
-
-    <div class="col-sm-3 my-3">
-      <div class="card h-100">
-        <a href="/books/add" class="btn btn-secondary h-100 pt-5">Create a new book</a>
-      </div>
-    </div>
 
 
   </div>
