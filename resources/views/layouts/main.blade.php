@@ -23,28 +23,39 @@
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">Online Book Rental System</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">Online Book Rental System</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          @if(Auth::check())
+          @can('is_librarian')
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="{{route('books.create')}}">Add New book</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{route('genres.index')}}">Genre List</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{route('borrows.index')}}">My Rentals</a>
+          </li>
+          @endcan
 
-
-
-        @can(Auth::check())
-        @can('is_librarian')
-        <a class="nav-item nav-link" href="{{route('books.create')}}">Add New book</a>
-        <a class="nav-item nav-link" href="{{route('genres.index')}}">Genre List</a>
-        <a class="nav-item nav-link" href="{{route('borrows.index')}}">Rentals list</a>
-        @endcan
-
-        @cannot('is_librarian')
-        <a class="nav-item nav-link" href="{{route('borrows.index')}}">My Rentals</a>
-        @endcannot
-        @endcan
+          @cannot('is_librarian')
+          <li class="nav-item">
+            <a class="nav-link" href="{{route('borrows.index')}}">My Rentals</a>
+          </li>
+          @endcannot
+          @endif
+        </ul>
+        <form class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
         <!-- Right Side Of Navbar -->
-        <ul class="navbar-nav ms-auto">
+        <ul class="navbar-nav">
           <!-- Authentication Links -->
           @guest
           @if (Route::has('login'))
@@ -65,7 +76,7 @@
             </a>
 
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="/profile" >
+              <a class="dropdown-item" href="/profile">
                 My Profile
               </a>
               <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
@@ -80,9 +91,11 @@
           </li>
           @endguest
         </ul>
+
       </div>
     </div>
   </nav>
+
 
   @yield('content')
 
