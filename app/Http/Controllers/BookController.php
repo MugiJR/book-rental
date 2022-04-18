@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\BookFormRequest;
+use App\Http\Requests\UpdateBookRequest;
 use App\Models\Book;
 use App\Models\Borrow;
 use App\Models\Genre;
@@ -54,12 +55,14 @@ class BookController extends Controller
 
     public function create()
     {
+        $this->authorize('is_librarian');
         $genres = Genre::all();
         return view('books.add', ['genres' => $genres]);
     }
 
     public function store(BookFormRequest $request)
     {
+        $this->authorize('is_librarian');
         $data = $request->validated();
         $genre = Book::create($data);
         if (isset($data['genres'])) {
@@ -70,17 +73,19 @@ class BookController extends Controller
 
     public function edit(Book $book)
     {
+        $this->authorize('is_librarian');
         $genres = Genre::all();
         $book->load('genres');
         return view('books.edit', compact('book', 'genres'));
     }
 
-    public function update(Book $book, BookFormRequest $request)
+    public function update(Book $book, UpdateBookRequest $request)
     {
+        $this->authorize('is_librarian');
         $data = $request->validated();
         $book->update($data);
         $book->genres()->sync($data['genres'] ?? []);
-        return redirect('/books');
+        return redirect('/');
     }
 
     public function show(Book $book)
