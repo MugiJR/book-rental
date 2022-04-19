@@ -66,16 +66,16 @@
                 </table>
             </div>
             @if(Auth::check())
+            @cannot('is_librarian')
             @if($book->ongoingBorrows->isNotEmpty())
             <h3 class="my-3">You have already an ongoing rental request for this book.</h3>
             @else
-            @cannot('is_librarian')
             <form action="{{route('borrows.store', ['book' => $book -> id] )}}" method="post">
                 @csrf
                 <button type="submit" class="btn btn-warning my-4">Borrow this book</button>
             </form>
-            @endcannot
             @endif
+            @endcannot
             @can('is_librarian')
             <a href="{{route('books.edit',['book' => $book->id])}}" class="btn btn-primary">Edit</a>
             <form action="{{route('books.destroy',['book' => $book->id])}}" method="post" class="d-inline">
