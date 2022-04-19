@@ -68,7 +68,8 @@ class BorrowController extends Controller
         $data['status'] = 'PENDING';
         $data['request_process_at'] = now();
         Borrow::create($data);
-        return redirect()->route('books.show', ['book' => $book_id]);
+        //return redirect()->route('books.show', ['book' => $book_id]);
+        return redirect()->route('books.index');
     }
 
     /**
@@ -79,7 +80,8 @@ class BorrowController extends Controller
      */
     public function show(Borrow $borrow)
     {
-        return view('borrows.show', ['borrow' => $borrow]);
+        $user = Auth::user()->id;
+        return view('borrows.show', ['borrow' => $borrow, 'user'=>$user]);
     }
 
     /**
@@ -90,7 +92,7 @@ class BorrowController extends Controller
      */
     public function edit(Borrow $borrow)
     {
-        //
+        dd($borrow);
     }
 
     /**
@@ -100,16 +102,18 @@ class BorrowController extends Controller
      * @param  \App\Models\Borrow  $borrow
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateBorrowRequest $request, Borrow $borrow)
+    public function update(Borrow $borrow, UpdateBorrowRequest $request)
     {
 
         $this->authorize('is_librarian');
         $data = $request->validated();
-        dd($data);
         if ($data['status'] != 'RETURNED') {
-            $data['request_managed_by'] = auth()->id();
-        } else {
-            $data['return_managed_by'] = auth()->id();
+            $borrow->request_managed_by = auth()->id();
+            $borrow->request_process_at = now();
+        } 
+        else {
+            $borrow->return_managed_by = auth()->id();
+            $borrow->returned_at = now();
         }
         $borrow->update($data);
         return redirect()->route('borrows.show', ['borrow' => $borrow]);

@@ -59,7 +59,7 @@
                             @foreach($inTimeAcceptedRentals as $rental)
                             <tr>
                                 <td>
-                                    <a href="{{route('books.show',['book' => $rental -> book_id])}}">{{$rental -> book -> title}}</a>
+                                    <a href="{{route('borrows.show',['borrow' => $rental -> id])}}">{{$rental -> book -> title}}</a>
                                 </td>
                                 <td>{{$rental -> book -> author}}</td>
                                 <td>{{$rental -> request_process_at}}</td>
@@ -93,7 +93,7 @@
                             @foreach($lateRentals as $rental)
                             <tr>
                                 <td>
-                                    <a href="{{route('books.show',['book' => $rental -> book_id])}}">{{$rental -> book -> title}}</a>
+                                    <a href="{{route('borrows.show',['borrow' => $rental -> id])}}">{{$rental -> book -> title}}</a>
                                 </td>
                                 <td>{{$rental -> book -> author}}</td>
                                 <td>{{$rental -> request_process_at}}</td>
@@ -127,7 +127,7 @@
                             @foreach($rejectedRentals as $rental)
                             <tr>
                                 <td>
-                                    <a href="{{route('books.show',['book' => $rental -> book_id])}}">{{$rental -> book -> title}}</a>
+                                    <a href="{{route('borrows.show',['borrow' => $rental -> id])}}">{{$rental -> book -> title}}</a>
                                 </td>
                                 <td>{{$rental -> book -> author}}</td>
                                 <td>{{$rental -> request_process_at}}</td>
@@ -161,7 +161,7 @@
                             @foreach($returnedRentals as $rental)
                             <tr>
                                 <td>
-                                    <a href="{{route('books.show',['book' => $rental -> book_id])}}">{{$rental -> book -> title}}</a>
+                                    <a href="{{route('borrows.show',['borrow' => $rental -> id])}}">{{$rental -> book -> title}}</a>
                                 </td>
                                 <td>{{$rental -> book -> author}}</td>
                                 <td>{{$rental -> request_process_at}}</td>

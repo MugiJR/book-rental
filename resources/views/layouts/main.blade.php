@@ -30,28 +30,26 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
           @if(Auth::check())
           @can('is_librarian')
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="{{route('books.create')}}">Add New book</a>
+            <a class="nav-link" href="{{route('books.create')}}">Add New book</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{route('genres.index')}}">Genre List</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{route('borrows.index')}}">My Rentals</a>
-          </li>
           @endcan
-
-          @cannot('is_librarian')
           <li class="nav-item">
-            <a class="nav-link" href="{{route('borrows.index')}}">My Rentals</a>
+            <a class="nav-link" aria-current="page" href="{{route('books.index')}}">Books</a>
           </li>
-          @endcannot
+          <li class="nav-item">
+            <a class="nav-link" href="{{route('borrows.index')}}">Rental List</a>
+          </li>
           @endif
         </ul>
         <form action="{{route('books.search')}}" class="d-flex" method="GET">
-          <input class="form-control me-2" type="search" name="book" placeholder="Search" aria-label="Search">
+          <input class="form-control me-2" type="search" name="book" placeholder="Search book" aria-label="Search">
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
         <!-- Right Side Of Navbar -->

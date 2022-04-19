@@ -24,14 +24,14 @@ class UpdateBorrowRequest extends FormRequest
     public function rules()
     {
         return [
-            'reader_id' => 'required',
-            'book_id' => 'required',
+            'reader_id' => 'nullable',
+            'book_id' => 'nullable',
             'status' => 'required',
-            'request_process_at' => null,
-            'request_managed_at' => null,
+            'request_process_at' => 'nullable',
+            'request_managed_by' => 'nullable',
             'deadline' => 'required',
-            'returned_at' => null,
-            'return_managed_by' => null
+            'returned_at' => 'nullable',
+            'return_managed_by' => 'nullable',
         ];
     }
 }

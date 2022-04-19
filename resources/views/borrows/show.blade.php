@@ -57,108 +57,109 @@
                     <div class="col-md-6">
                         <h3>Rental Info</h3>
                     </div>
-                    @if($borrow->deadline<now()) <div class="col-md-4">
-                        <label class="btn btn-sm btn-default float-end bg-danger bg-gradient text-white">View Book Details</label>
+                    <div class="col-md-4">
+                        @if(!empty($borrow->deadline) && $borrow->deadline< now()) <label class="btn btn-sm btn-default float-end bg-danger bg-gradient text-white">Deadline Crossed</label>
+                            @endif
+                    </div>
+
+
                 </div>
-                @endif
+                <!-- END -->
+                <!-- Rental Details -->
+                <div class="col-md">
+                    <table class="table table-borderless">
+                        <thead>
+                            <tr>
+                                <th scope="col"> </th>
+                                <th scope="col"> </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">Name of the borrower</th>
+                                <td>{{$borrow->reader->name}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Date of rental request</th>
+                                <td>{{$borrow->created_at}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Status</th>
+                                <td><strong>{{$borrow->status}}</strong></td>
+                            </tr>
+                            @if($borrow->status != 'PENDING')
+                            <tr>
+                                <th scope="row">Date of procession</th>
+                                <td>{{$borrow->request_process_at}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Librarian's name</th>
+                                <td>{{$borrow->managedRequests->name}}</td>
+                            </tr>
 
+                            @endif
+                            @if($borrow->status === 'RETURNED')
+                            <tr>
+                                <th scope="row">Returned at</th>
+                                <td>{{$borrow->returned_at}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Librarian's name</th>
+                                <td>{{$borrow->managedRequests->name}}</td>
+                            </tr>
+                            @endif
+                        </tbody>
+                    </table>
+                </div>
+                <!-- END Rental details -->
             </div>
-            <!-- END -->
-            <!-- Rental Details -->
-            <div class="col-md">
-                <table class="table table-borderless">
-                    <thead>
-                        <tr>
-                            <th scope="col"> </th>
-                            <th scope="col"> </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">Name of the borrower</th>
-                            <td>{{$borrow->reader->name}}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Date of rental request</th>
-                            <td>{{$borrow->created_at}}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Status</th>
-                            <td><strong>{{$borrow->status}}</strong></td>
-                        </tr>
-                        @if($borrow->status != 'PENDING')
-                        <tr>
-                            <th scope="row">Date of procession</th>
-                            <td>{{$borrow->request_process_at}}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Librarian's name</th>
-                            <td>{{$borrow->managedRequests->name}}</td>
-                        </tr>
-
-                        @endif
-                        @if($borrow->status === 'RETURNED')
-                        <tr>
-                            <th scope="row">Returned at</th>
-                            <td>{{$borrow->returned_at}}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Librarian's name</th>
-                            <td>{{$borrow->managedRequests->name}}</td>
-                        </tr>
-                        @endif
-                    </tbody>
-                </table>
-            </div>
-            <!-- END Rental details -->
         </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        @can('is_librarian')
-        <form action="{{route('borrows.update',['borrow'=>$borrow -> id])}}" method="post">
-            @csrf
-            @method('PUT')
+    <div class="row">
+        <div class="col-md-12">
+            @can('is_librarian')
+            <form action="{{route('borrows.update',['borrow'=>$borrow -> id])}}" method="post">
+                @csrf
+                @method('PUT')
 
-            <div class="col-md-6 py-2">
-                <label for="deadline">Deadline</label>
-                <input type="date" class="form-control @error('deadline') is-invalid @enderror" value="{{old('deadline',$borrow->deadline)}}" id="deadline" name="deadline">
-                @error('deadline')
-                <div class="invalid-feedback">
-                    {{$message}}
-                </div>
-                @enderror
-            </div>
-            <div class="col-md-6 py-2">
-
-                <label for="status">Status</label>
-                <select name="status" class="form-control @error('status') is-invalid @enderror">
-                    <option value="" selected disabled>Select Status</option>
-                    <option value="PENDING" @selected(old('status',$borrow->status)=='PENDING')>
-                        PENDING
-                    </option>
-                    <option value="REJECTED" @selected(old('status',$borrow->status)=='REJECTED')>
-                        REJECTED
-                    </option>
-                    <option value="ACCEPTED" @selected(old('status',$borrow->status)=='ACCEPTED')>
-                        ACCEPTED
-                    </option>
-                    <option value="RETURNED" @selected(old('status',$borrow->status)=='RETURNED')>
-                        RETURNED
-                    </option>
-                    @error('status')
+                <div class="col-md-6 py-2">
+                    <label for="deadline">Deadline</label>
+                    <input type="date" class="form-control @error('deadline') is-invalid @enderror" value="{{old('deadline', $borrow->deadline)}}" id="deadline" name="deadline">
+                    @error('deadline')
                     <div class="invalid-feedback">
                         {{$message}}
                     </div>
                     @enderror
-                </select>
-            </div>
+                </div>
+                <div class="col-md-6 py-2">
 
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-        @endcan
+                    <label for="status">Status</label>
+                    <select name="status" class="form-control @error('status') is-invalid @enderror">
+                        <option value="" selected disabled>Select Status</option>
+                        <option value="PENDING" @selected(old('status',$borrow->status)=='PENDING')>
+                            PENDING
+                        </option>
+                        <option value="REJECTED" @selected(old('status',$borrow->status)=='REJECTED')>
+                            REJECTED
+                        </option>
+                        <option value="ACCEPTED" @selected(old('status',$borrow->status)=='ACCEPTED')>
+                            ACCEPTED
+                        </option>
+                        <option value="RETURNED" @selected(old('status',$borrow->status)=='RETURNED')>
+                            RETURNED
+                        </option>
+                        @error('status')
+                        <div class="invalid-feedback">
+                            {{$message}}
+                        </div>
+                        @enderror
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+            @endcan
+        </div>
     </div>
-</div>
 </div>
 @endsection

@@ -17,6 +17,11 @@
           <a href="/books/{{$book->id}}" class="btn btn-secondary">View</a>
           @can('is_librarian')
           <a href="/books/{{$book->id}}/edit" class="btn btn-primary">Edit</a>
+          <form action="{{route('books.destroy',['book' => $book->id])}}" method="post" class="d-inline">
+                @csrf
+                @method('delete')
+                <button type="submit" class="btn btn-warning my-4">Delete</button>
+            </form>
           @endcan
         </div>
       </div>

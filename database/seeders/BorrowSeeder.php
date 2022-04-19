@@ -19,7 +19,7 @@ class BorrowSeeder extends Seeder
     {
         DB::table('borrows')->truncate();
         Borrow::factory()
-            ->count(3)
+            ->count(10)
             ->create();
     }
 }

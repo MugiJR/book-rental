@@ -65,58 +65,28 @@
                     </tbody>
                 </table>
             </div>
+            @if(Auth::check())
             @if($book->ongoingBorrows->isNotEmpty())
-            <h3 class="my-3">Sorry, you have already an ongoing rental request for this book.</h3>
+            <h3 class="my-3">You have already an ongoing rental request for this book.</h3>
             @else
+            @cannot('is_librarian')
             <form action="{{route('borrows.store', ['book' => $book -> id] )}}" method="post">
                 @csrf
                 <button type="submit" class="btn btn-warning my-4">Borrow this book</button>
             </form>
+            @endcannot
             @endif
-            <form action="/books/{{$book->id}}" method="post">
+            @can('is_librarian')
+            <a href="{{route('books.edit',['book' => $book->id])}}" class="btn btn-primary">Edit</a>
+            <form action="{{route('books.destroy',['book' => $book->id])}}" method="post" class="d-inline">
                 @csrf
                 @method('delete')
                 <button type="submit" class="btn btn-warning my-4">Delete</button>
             </form>
-
+            @endcan
+            @endif
         </div>
-
-
     </div>
-    <!-- /.row -->
-
-    <!-- Related Projects Row -->
-    <!-- <h3 class="my-4">Related Projects</h3>
-
-    <div class="row">
-
-        <div class="col-md-3 col-sm-6 mb-4">
-            <a href="#">
-                <img class="img-fluid" src="https://via.placeholder.com/500x300" alt="">
-            </a>
-        </div>
-
-        <div class="col-md-3 col-sm-6 mb-4">
-            <a href="#">
-                <img class="img-fluid" src="https://via.placeholder.com/500x300" alt="">
-            </a>
-        </div>
-
-        <div class="col-md-3 col-sm-6 mb-4">
-            <a href="#">
-                <img class="img-fluid" src="https://via.placeholder.com/500x300" alt="">
-            </a>
-        </div>
-
-        <div class="col-md-3 col-sm-6 mb-4">
-            <a href="#">
-                <img class="img-fluid" src="https://via.placeholder.com/500x300" alt="">
-            </a>
-        </div>
-
-    </div>
-    /.row -->
-
 </div>
 <!-- /.container -->
 @endsection
