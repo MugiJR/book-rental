@@ -15,12 +15,10 @@
       Number of Books
       <span class="badge bg-primary rounded-pill">{{$numberOfBooks}}</span>
     </li>
-    @if(Auth::check())
     <li class="list-group-item d-flex justify-content-between align-items-center">
       Number of Active Book Rentals
       <span class="badge bg-primary rounded-pill">{{$numberOfActiveBookRentals}}</span>
     </li>
-    @endif
   </ul>
   <div class="accordion" id="accordionExample">
     <div class="accordion-item">

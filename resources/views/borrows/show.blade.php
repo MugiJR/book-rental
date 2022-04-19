@@ -58,7 +58,8 @@
                         <h3>Rental Info</h3>
                     </div>
                     <div class="col-md-4">
-                        @if(!empty($borrow->deadline) && $borrow->deadline< now()) <label class="btn btn-sm btn-default float-end bg-danger bg-gradient text-white">Deadline Crossed</label>
+                        @if(!empty($borrow->deadline) && $borrow->deadline< now()) 
+                        <label class="btn btn-sm btn-default float-end bg-danger bg-gradient text-white">Deadline Crossed</label>
                             @endif
                     </div>
 

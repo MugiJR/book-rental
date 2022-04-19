@@ -86,8 +86,9 @@
             </div>
             @enderror
         </div>
-
+        <label>Genres</label>
         <div class="form-group d-flex flex-wrap py-3">
+        
             @foreach ($genres as $genre)
             <div class="custom-control custom-switch col-sm-2">
                 <input type="checkbox" class="custom-control-input" name="genres[]" id="genre-{{ $genre['id'] }}" value="{{ $genre['id'] }}" {{ (is_array(old('genres')) && in_array($genre['id'], old('genres'))) ? ' checked' : '' }}>
